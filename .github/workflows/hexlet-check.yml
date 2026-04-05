@@ -18,6 +18,14 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
+      - name: Ensure fresh Docker build
+        run: |
+          docker buildx rm --all-inactive --force 2>/dev/null || true
+          docker buildx create --name fresh --use
+          docker system prune -af
+          docker builder prune -af
+          rm -rf /var/tmp/* 2>/dev/null || true
+
       - name: Hexlet project check
         uses: hexlet/project-action@release
         with:
