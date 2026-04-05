@@ -18,18 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - name: Clear Docker buildx cache
-        run: |
-          docker buildx rm --all-inactive --force 2>/dev/null || true
-          docker buildx create --name nocache --driver docker-container --use
-          docker system prune -af
-          docker builder prune -af
-          rm -rf /var/tmp/* 2>/dev/null || true
-
       - name: Hexlet project check
         uses: hexlet/project-action@release
         with:
           hexlet-id: ${{ secrets.HEXLET_ID }}
-        env:
-          DOCKER_BUILDKIT: 1
-          BUILDX_NO_DEFAULT_ATTESTATIONS: 1
