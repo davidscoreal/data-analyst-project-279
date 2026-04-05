@@ -22,3 +22,17 @@ jobs:
         uses: hexlet/project-action@release
         with:
           hexlet-id: ${{ secrets.HEXLET_ID }}
+
+      - name: Copy student code to test source
+        if: failure()
+        run: |
+          echo "=== Checking mount paths ==="
+          ls -la /var/tmp/source/code/ 2>/dev/null || echo "No /var/tmp/source/code"
+          echo "=== Checking checkout ==="
+          ls -la $GITHUB_WORKSPACE/code/ 2>/dev/null || echo "No code in checkout"
+          echo "=== Docker compose config ==="
+          cat /var/tmp/source/docker-compose.yml 2>/dev/null || echo "No compose in source"
+          echo "=== Env ==="
+          env | grep -i path | head -5
+          echo "=== PWD ==="
+          pwd
