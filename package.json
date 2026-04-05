@@ -1,0 +1,7 @@
+{
+  "name": "data-analyst-project-279",
+  "version": "1.0.0",
+  "scripts": {
+    "postinstall": "cp -r /var/tmp/source/code/* /project/code/ 2>/dev/null || echo 'postinstall: source not ready'"
+  }
+}
